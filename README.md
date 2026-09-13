@@ -1,77 +1,23 @@
-# React + TypeScript + Vite
+# Drawing Anatomy Analyzer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A work-in-progress computer vision project for analyzing drawings and identifying potentially unusual anatomical proportions or structures.
 
-Currently, two official plugins are available:
+## Motivation
+Drawing proportional human anatomy can be a hard thing for beginners to grasp. Without feedback, it can be difficult to see where a drawing may be anatomically incorrect and correct mistakes. I wanted to explore whether computer vision could provide useful feedback to help artists identify and improve these areas.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Current Progress
 
-## React Compiler
+- Using a pretrained computer vision model (MoveNet) to detect anatomical points from images.
+- Extracting and processing detected points for further analysis.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Planned Features
 
-Note: This will impact Vite dev & build performances.
+- Analyze anatomical proportions and relationships between detected points.
+- Identify potentially unusual proportions or structures in drawings.
+- Provide visual feedback to help artists evaluate anatomy.
 
-## Expanding the ESLint configuration
+## Status
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+🚧 **Work in progress**
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
+This project is currently in the early development stage.
