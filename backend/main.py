@@ -5,11 +5,23 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List
 
-class Keypoint(BaseModel):
-    points: list[float]
+class PoseKeypoint(BaseModel):
+    x: float
+    y: float
+    score: float
+    name: str | None = None
 
-class PosePoints(BaseModel):
-    keypoints: list[Keypoint]
+class FacePoints(BaseModel):
+    xMin: float
+    yMin: float
+    xMax: float
+    yMax: float
+    width: float
+    height: float
+
+class Points(BaseModel):
+    pose_keypoints: list[PoseKeypoint]
+    face_keypoints: FacePoints
 
 app = FastAPI();
 
@@ -25,19 +37,11 @@ app.add_middleware(
     allow_headers = ["*"],
 )
 
-#don't need memory because you arent storing just for learning purposes rn
-
-# memory_db = {"keypoints": []}
-
-# @app.get("/upload", response_model=PosePoints)
-# def get_points():
-#     return PosePoints(keypoints=memory_db["keypoints"])
-
-# @app.post("/upload")
-# def set_points(pose : PosePoints):
-#     memory_db["keypoints"]=pose.keypoints
-#     return pose
-
 @app.post("/analyze")
-def analyze_pose(pose: PosePoints):
-    return pose
+def analyze_pose(data: Points):
+    pose = data.pose_keypoints
+    face = data.face_keypoints
+
+    return {
+        "pose_count": len(pose),
+    }

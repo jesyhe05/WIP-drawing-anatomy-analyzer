@@ -50,10 +50,29 @@ const Upload = ()=> {
 
             if (!poseDetector || !faceDetector) return;
 
-            const poses = await poseDetector?.estimatePoses(img);
+            const pose = await poseDetector?.estimatePoses(img);
             const face = await faceDetector?.estimateFaces(img)
-            console.log(poses);
-            console.log(face);
+            console.log(face)
+            
+            try{
+
+                const response = await fetch("http://localhost:8000/analyze", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        pose_keypoints: pose[0].keypoints,
+                        face_keypoints: face[0].box
+                    })
+                });
+
+                const result = await response.json();
+                console.log(result);
+                
+            } catch (error) {
+                alert('detection arror')
+            }
         };
 
         img.onerror = () => {
